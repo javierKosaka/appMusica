@@ -37,6 +37,7 @@ def main(page: ft.Page):
     ]
     
     tipo_datos = [td for td in tipo_datos_order if any(row[0] == td for row in rows)]
+
     atributos = sorted(set(row[1] for row in rows))
 
     data = {}
