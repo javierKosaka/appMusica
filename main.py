@@ -1,6 +1,7 @@
 # IMPORTAIONES
 import flet as ft
 import sqlite3
+from componentes import crear_dropdown
 
 # --- INICIO FUNCION MAIN---
 def main(page: ft.Page):
@@ -9,12 +10,29 @@ def main(page: ft.Page):
     cursor = conn.cursor()
 
     # RESTA CONVERTIR LOS VALUES DE TIPO_ESCALA Y TONALIDAD EN VARIABLES.  PASAR COMO PARAMETRO DESDE UN SELECTOR.
+    
+    cursor.execute("""
+        SELECT DISTINCT TIPO_ESCALA FROM modulacion
+    """)
+    TIPO_ESCALA_Q = cursor.fetchall()
+    
+    cursor.execute("""
+        SELECT DISTINCT TONALIDAD FROM modulacion
+    """)
+    TONALIDAD_Q = cursor.fetchall()    
+    
     cursor.execute("""
         SELECT TIPO_DATO, ATRIBUTO, VALOR
         FROM modulacion
         WHERE TIPO_ESCALA = 'MENOR MELODICA' AND TONALIDAD = 'B'
     """)
     rows = cursor.fetchall()
+    
+    #dropdown 1
+    crear_dropdown(page, TIPO_ESCALA_Q, titulo="Elige una escala")
+    
+    #dropdown 2
+    crear_dropdown(page, TONALIDAD_Q, titulo="Elige una tonalidad")
 
     # Criterios de orden y ordenar
     tipo_datos_order = [
