@@ -1,18 +1,13 @@
+# IMPORTACIONES
 import flet as ft
 
-def crear_dropdown(page, opciones, titulo="Selecciona una opción"):
-    def dropdown_changed(e):
-        t.value = f"Seleccionaste: {dd.value}"
-        page.update()
-    
-    t = ft.Text()
-    
+# COMPONENTE DROPDOWN
+def crear_dropdown(opciones, titulo="Selecciona una opción", on_change=None):
     dd = ft.Dropdown(
         label=titulo,
-        on_change=dropdown_changed,
+        on_change=on_change,
         options=[ft.dropdown.Option(option[0]) for option in opciones],
         width=200,
     )
-    
-    page.add(dd, t)
-    
+    t = ft.Text()
+    return dd, t
